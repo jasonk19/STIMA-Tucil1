@@ -205,6 +205,8 @@ void PencocokanString(Matrix T, string P)
   found = false;
   // Horizontal Matching
   if (!found) {
+    locRow = 0;
+    locCol = 0;
     countLetter = 0;
     for (int i = 0; i < row; i++) {
       locCol = 0;
@@ -242,8 +244,49 @@ void PencocokanString(Matrix T, string P)
 
   }
 
+  // Alternate Horizonal Matching
+  if (!found) {
+    countLetter = 0;
+    locRow = 0;
+    locCol = col - 1;
+    for (int i = 0; i < row; i++) {
+      locCol = col - 1;
+      while (locCol >= m && !found) {
+        iter = 0;
+        while (iter < m && P[iter] == Elem(T, i, locCol - iter)) {
+          iter++;
+          countLetter++;
+        }
+
+        if (iter == m) {
+          found = true;
+          locRow = i;
+          for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+              if (i != locRow) {
+                Elem(T,i,j) = '-';
+              }
+              if (i == locRow) {
+                if (j > locCol) {
+                  Elem(T,i,j) = '-';
+                }
+                if (j <= locCol - m) {
+                  Elem(T,i,j) = '-';
+                }
+              }
+            }
+          }
+        } else {
+          locCol--;
+          countLetter++;
+        }
+      }
+    }
+
+  }
+
   // Vertical Matching
-  if(!found) {
+  if (!found) {
     locCol = 0;
     countLetter = 0;
     while (locCol < col) {
@@ -284,16 +327,94 @@ void PencocokanString(Matrix T, string P)
 
   }
 
+  // Alternate Vertical Matching
+  if (!found) {
+    locCol = 0;
+    locRow = row - 1;
+    countLetter = 0;
+    while (locCol < col) {
+      locRow = row - 1;
+      while (locRow >= m - 1 && !found) {
+        iter = 0;
+        while (iter < m && P[iter] == Elem(T, locRow - iter, locCol)) {
+          iter++;
+          countLetter++;
+
+        }
+
+        if (iter == m) {
+          found = true;
+          for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+              if (j != locCol) {
+                Elem(T,i,j) = '-';
+              }
+              if (j == locCol) {
+                if (i > locRow) {
+                  Elem(T,i,j) = '-';
+                }
+                if (i <= locRow - m) {
+                  Elem(T,i,j) = '-';
+                }
+              }
+            }
+          }
+        } else {
+          locRow--;
+          countLetter++;
+
+        }
+      }
+      locCol++;
+    }
+
+  }
+
+  // Diagonal Matching
+  // if (!found) {
+  //   locRow = 0;
+  //   locCol = 0;
+  //   countLetter = 0;
+  //   while (locRow <= row - m && locCol <= col - m && !found) {
+  //     iter = 0;
+  //     while (iter < m && P[iter] == Elem(T, locRow + iter, locCol + iter)) {
+  //       iter++;
+  //       countLetter++;
+  //     }
+
+  //     if (iter == m) {
+  //       found = true;
+  //       for (int i = 0; i < row; i++) {
+  //         for (int j = 0; j < col; j++) {
+  //           if (i != j) {
+  //             Elem(T,i,j) = '-';
+  //           }
+  //           if (i < locRow && j < locCol) {
+  //             Elem(T,i,j) = '-';
+  //           }
+  //           if (i >= locRow + m && j >= locCol + m) {
+  //             Elem(T,i,j) = '-';
+  //           }
+  //         }
+  //       }
+  //     } else {
+  //       locRow++;
+  //       locCol++;
+  //       countLetter++;
+  //     }
+  //   }
+  // }
+
   // Row Major Diagonal Matching
   if (!found) {
     locRow = 0;
     locCol = 0;
     countLetter = 0;
-    while (locRow <= row - m) {
+    while (locRow < row) {
       locCol = 0;
       while (locCol <= col - m && !found) {
         iter = 0;
-        while (iter <= m && P[iter] == Elem(T, locRow + iter, locCol + iter)) {
+        while (iter < m && P[iter] == Elem(T, locRow + iter, locCol + iter)) {
           iter++;
           countLetter++;
 
@@ -341,11 +462,11 @@ void PencocokanString(Matrix T, string P)
     countLetter = 0;
     locRow = 0;
     locCol = col - 1;
-    while (locRow <= row - m) {
+    while (locRow < row) {
       locCol = col - 1;
-      while (locCol >= col - m && !found) {
+      while (locCol >= m - 1 && !found) {
         iter = 0;
-        while (iter <= m && P[iter] == Elem(T, locRow + iter, locCol - iter)) {
+        while (iter < m && P[iter] == Elem(T, locRow + iter, locCol - iter)) {
           iter++;
           countLetter++;
 
@@ -387,14 +508,156 @@ void PencocokanString(Matrix T, string P)
     }
   }
 
-  // Karena Pencarian Diagonal berdasarkan row major dan column major dan diagonal utama hasilnya sama jadi cukup berdasarkan row major saja.
+  // Column Major Diagonal Matching
+  if (!found) {
+    locRow = 0;
+    locCol = 0;
+    countLetter = 0;
+    while (locCol < col) {
+      locRow = 0;
+      while (locRow <= row - m && !found) {
+        iter = 0;
+        while (iter < m && P[iter] == Elem(T, locRow + iter, locCol + iter)) {
+          iter++;
+          countLetter++;
+        }
+
+        if (iter == m) {
+          found = true;
+           for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+              if (i < locRow) {
+                Elem(T,i,j) = '-';
+              }
+              if (j < locCol) {
+                Elem(T,i,j) = '-';
+              }
+              if (i >= locRow + m) {
+                Elem(T,i,j) = '-';
+              }
+              if (j >= locCol + m) {
+                Elem(T,i,j) = '-';
+              }
+              for (int k = 0; k < m; k++) {
+                if (i > locRow + k && j <= locCol + k) {
+                  Elem(T,i,j) = '-';
+                }
+                if (i <= locRow + k && j > locCol + k) {
+                  Elem(T,i,j) = '-';
+                }
+              }
+            }
+          }
+        } else {
+          locRow++;
+          countLetter++;
+        }
+      }
+      locCol++;
+    }
+  }
+
+  // Alternate Column Major Diagonal Matching
+  if (!found) {
+    locRow = row - 1;
+    locCol = 0;
+    countLetter = 0;
+    while (locCol < col) {
+      locRow = row - 1;
+      while (locRow >= m - 1 && !found) {
+        iter = 0;
+        while (iter < m && P[iter] == Elem(T, locRow - iter, locCol + iter)) {
+          iter++;
+          countLetter++;
+        }
+        if (iter == m) {
+          found = true;
+          for (int i = 0; i < row; i++) {
+            for (int j = col - 1; j >= 0; j--) {
+              if (j < locCol) {
+                Elem(T,i,j) = '-';
+              }
+              if (i > locRow) {
+                Elem(T,i,j) = '-';
+              }
+              if (j >= locCol + m) {
+                Elem(T,i,j) = '-';
+              }
+              if (i <= locRow - m) {
+                Elem(T,i,j) = '-';
+              }
+              for (int k = 0; k < m; k++) {
+                if (i < locRow - k && j <= locCol + k) {
+                  Elem(T,i,j) = '-';
+                }
+                if (i == locRow - k && j > locCol + k) {
+                  Elem(T,i,j) = '-';
+                }
+              }
+            }
+          }
+        } else {
+          locRow--;
+          countLetter++;
+        }
+      }
+      locCol++;
+    }
+  }
+
+  if (!found) {
+    locRow = row - 1;
+    locCol = col - 1;
+    countLetter = 0;
+    while (locCol >= 0) {
+      locRow = row - 1;
+      while (locRow >= m - 1 && !found) {
+        iter = 0;
+        while (iter < m && P[iter] == Elem(T, locRow - iter, locCol - iter)) {
+          iter++;
+          countLetter++;
+        }
+
+        if (iter == m) {
+          found = true;
+          for (int i = 0; i < row; i++) {
+            for (int j = col - 1; j >= 0; j--) {
+              if (j > locCol) {
+                Elem(T,i,j) = '-';
+              }
+              if (i > locRow) {
+                Elem(T,i,j) = '-';
+              }
+              if (j <= locCol - m) {
+                Elem(T,i,j) = '-';
+              }
+              if (i <= locRow - m) {
+                Elem(T,i,j) = '-';
+              }
+              for (int k = 0; k < m; k++) {
+                if (i < locRow - k && j == locCol - k) {
+                  Elem(T,i,j) = '-';
+                }
+                if (i == locRow - k && j < locCol - k) {
+                  Elem(T,i,j) = '-';
+                }
+              }
+            }
+          }
+        } else {
+          locRow--;
+          countLetter++;
+        }
+      }
+      locCol--;
+    }
+  }
 
   if (found) {
     displayMat(T);
     cout << endl;
     cout << "Total Perbandingan Huruf : " << countLetter << endl << endl;
     cout << "-----------------------ENDLINE-----------------------" << endl << endl;
-
   }
 }
 
@@ -433,11 +696,11 @@ int main()
     PencocokanString(m, ListElem(l,i));
   }
 
-  for (int i = 0; i < getLength(l); i++) {
-    string reversedString = ListElem(l,i);
-    reverse(reversedString.begin(), reversedString.end());
-    PencocokanString(m, reversedString);
-  }
+  // for (int i = 0; i < getLength(l); i++) {
+  //   string reversedString = ListElem(l,i);
+  //   reverse(reversedString.begin(), reversedString.end());
+  //   PencocokanString(m, reversedString);
+  // }
 
   cout << "-----------------------EXECUTION TIME-----------------------" << endl;
 
