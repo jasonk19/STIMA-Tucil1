@@ -1,1 +1,1 @@
-# STIMA-Tucil1
+# STIMA-Tucil1 (Word Finder)
