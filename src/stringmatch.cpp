@@ -3,7 +3,6 @@
 #include <sstream>
 #include <vector>
 #include <bits/stdc++.h>
-#include <chrono>
 using namespace std;
 
 #define MAX 100
@@ -428,7 +427,7 @@ int main()
   cout << "-----------------------WORD CHOICES-----------------------" << endl;
   displayList(l);
 
-  cout << "-----------------------RESULT-----------------------" << endl;
+  cout << "-----------------------RESULT-----------------------" << endl << endl;
 
   for (int i = 0; i < getLength(l); i++) {
     PencocokanString(m, ListElem(l,i));
