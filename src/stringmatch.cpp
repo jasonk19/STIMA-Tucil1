@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <bits/stdc++.h>
+#include <time.h>
 using namespace std;
 
 #define MAX 100
@@ -689,12 +690,17 @@ int main()
 
   cout << "-----------------------RESULT-----------------------" << endl << endl;
 
+  clock_t start = clock();
+
   for (int i = 0; i < getLength(l); i++) {
     PencocokanString(m, ListElem(l,i));
   }
 
   cout << "-----------------------EXECUTION TIME-----------------------" << endl;
 
+  cout << "Execution Time of the program : ";
+  cout.precision(10);
+  cout << fixed << float(clock() - start) / CLOCKS_PER_SEC << "s" << endl;
 
   return 0;
 }
