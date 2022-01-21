@@ -251,7 +251,7 @@ void PencocokanString(Matrix T, string P)
     locCol = col - 1;
     for (int i = 0; i < row; i++) {
       locCol = col - 1;
-      while (locCol >= m && !found) {
+      while (locCol >= m - 1 && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, i, locCol - iter)) {
           iter++;
@@ -695,12 +695,6 @@ int main()
   for (int i = 0; i < getLength(l); i++) {
     PencocokanString(m, ListElem(l,i));
   }
-
-  // for (int i = 0; i < getLength(l); i++) {
-  //   string reversedString = ListElem(l,i);
-  //   reverse(reversedString.begin(), reversedString.end());
-  //   PencocokanString(m, reversedString);
-  // }
 
   cout << "-----------------------EXECUTION TIME-----------------------" << endl;
 
