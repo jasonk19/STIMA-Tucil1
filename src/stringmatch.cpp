@@ -27,7 +27,6 @@ typedef struct
 #define COLS(M) (M).colEff
 #define Elem(M, i, j) (M).contents[(i)][(j)]
 
-
 /*** KONSTRUKTOR ***/
 void createMat(Matrix *m)
 {
@@ -665,8 +664,6 @@ void PencocokanString(Matrix T, string P)
 
 int main()
 {
-
-  time_t start, end; // Inisiasi Waktu Eksekusi
 
   Matrix m;
   List l;
