@@ -654,7 +654,7 @@ int main()
 
   cout << "-----------------------CONCLUSION-----------------------" << endl << endl;
 
-  cout << "Total number of letter comparison: " << perbandinganHuruf << " letters" << endl;
+  cout << "Total number of letter comparison: " << perbandinganHuruf << " times" << endl;
   cout << "Execution Time of the program with Result Printing : ";
   cout.precision(10);
   cout << fixed << float(clock() - start) / CLOCKS_PER_SEC << "s" << endl;
