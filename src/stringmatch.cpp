@@ -191,7 +191,7 @@ List fixList(List l) {
 }
 
 /*** PROSEDUR/FUNGSI STRING MATCHING ***/
-void PencocokanString(Matrix T, string P)
+void PencocokanString(Matrix T, string P, int *perbandinganHuruf)
 {
   int col = getCol(T);
   int row = getRow(T);
@@ -200,21 +200,19 @@ void PencocokanString(Matrix T, string P)
   int locRow, locCol;
   int iter;
   bool found;
-  int countLetter; // Variabel untuk menghitung jumlah perbandingan huruf
 
   found = false;
   // Horizontal Matching
   if (!found) {
     locRow = 0;
     locCol = 0;
-    countLetter = 0;
     for (int i = 0; i < row; i++) {
       locCol = 0;
       while (locCol <= col - m && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, i, locCol + iter)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
 
         if (iter == m) {
@@ -237,7 +235,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locCol++;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
       }
     }
@@ -246,7 +244,6 @@ void PencocokanString(Matrix T, string P)
 
   // Alternate Horizonal Matching
   if (!found) {
-    countLetter = 0;
     locRow = 0;
     locCol = col - 1;
     for (int i = 0; i < row; i++) {
@@ -255,7 +252,7 @@ void PencocokanString(Matrix T, string P)
         iter = 0;
         while (iter < m && P[iter] == Elem(T, i, locCol - iter)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
 
         if (iter == m) {
@@ -278,7 +275,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locCol--;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
       }
     }
@@ -288,14 +285,13 @@ void PencocokanString(Matrix T, string P)
   // Vertical Matching
   if (!found) {
     locCol = 0;
-    countLetter = 0;
     while (locCol < col) {
       locRow = 0;
       while (locRow <= row - m && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, locRow + iter, locCol)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
 
@@ -318,7 +314,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locRow++;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
       }
@@ -331,14 +327,13 @@ void PencocokanString(Matrix T, string P)
   if (!found) {
     locCol = 0;
     locRow = row - 1;
-    countLetter = 0;
     while (locCol < col) {
       locRow = row - 1;
       while (locRow >= m - 1 && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, locRow - iter, locCol)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
 
@@ -361,7 +356,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locRow--;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
       }
@@ -374,14 +369,13 @@ void PencocokanString(Matrix T, string P)
   if (!found) {
     locRow = 0;
     locCol = 0;
-    countLetter = 0;
     while (locRow < row) {
       locCol = 0;
       while (locCol <= col - m && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, locRow + iter, locCol + iter)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
         if (iter == m) {
@@ -412,7 +406,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locCol++;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
       }
@@ -424,7 +418,6 @@ void PencocokanString(Matrix T, string P)
 
   // Alternate Row Major Diagonal Matching
   if (!found) {
-    countLetter = 0;
     locRow = 0;
     locCol = col - 1;
     while (locRow < row) {
@@ -433,7 +426,7 @@ void PencocokanString(Matrix T, string P)
         iter = 0;
         while (iter < m && P[iter] == Elem(T, locRow + iter, locCol - iter)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
 
@@ -465,7 +458,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locCol--;
-          countLetter++;
+          *perbandinganHuruf += 1;
 
         }
       }
@@ -477,14 +470,13 @@ void PencocokanString(Matrix T, string P)
   if (!found) {
     locRow = 0;
     locCol = 0;
-    countLetter = 0;
     while (locCol < col) {
       locRow = 0;
       while (locRow <= row - m && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, locRow + iter, locCol + iter)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
 
         if (iter == m) {
@@ -515,7 +507,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locRow++;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
       }
       locCol++;
@@ -526,14 +518,13 @@ void PencocokanString(Matrix T, string P)
   if (!found) {
     locRow = row - 1;
     locCol = 0;
-    countLetter = 0;
     while (locCol < col) {
       locRow = row - 1;
       while (locRow >= m - 1 && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, locRow - iter, locCol + iter)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
         if (iter == m) {
           found = true;
@@ -563,7 +554,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locRow--;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
       }
       locCol++;
@@ -574,14 +565,13 @@ void PencocokanString(Matrix T, string P)
   if (!found) {
     locRow = row - 1;
     locCol = col - 1;
-    countLetter = 0;
     while (locCol >= 0) {
       locRow = row - 1;
       while (locRow >= m - 1 && !found) {
         iter = 0;
         while (iter < m && P[iter] == Elem(T, locRow - iter, locCol - iter)) {
           iter++;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
 
         if (iter == m) {
@@ -612,7 +602,7 @@ void PencocokanString(Matrix T, string P)
           }
         } else {
           locRow--;
-          countLetter++;
+          *perbandinganHuruf += 1;
         }
       }
       locCol--;
@@ -622,7 +612,6 @@ void PencocokanString(Matrix T, string P)
   if (found) {
     displayMat(T);
     cout << endl;
-    cout << "Total Perbandingan Huruf : " << countLetter << endl << endl;
     cout << "-----------------------ENDLINE-----------------------" << endl << endl;
   }
 }
@@ -634,6 +623,7 @@ int main()
 
   Matrix m;
   List l;
+  int perbandinganHuruf = 0;
 
   createList(&l);
 
@@ -659,11 +649,12 @@ int main()
   clock_t start = clock();
 
   for (int i = 0; i < getLength(l); i++) {
-    PencocokanString(m, ListElem(l,i));
+    PencocokanString(m, ListElem(l,i), &perbandinganHuruf);
   }
 
-  cout << "-----------------------EXECUTION TIME-----------------------" << endl;
+  cout << "-----------------------CONCLUSION-----------------------" << endl << endl;
 
+  cout << "Total number of letter comparison: " << perbandinganHuruf << " letters" << endl;
   cout << "Execution Time of the program with Result Printing : ";
   cout.precision(10);
   cout << fixed << float(clock() - start) / CLOCKS_PER_SEC << "s" << endl;
