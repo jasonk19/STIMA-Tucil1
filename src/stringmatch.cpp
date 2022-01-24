@@ -370,41 +370,6 @@ void PencocokanString(Matrix T, string P)
 
   }
 
-  // Diagonal Matching
-  // if (!found) {
-  //   locRow = 0;
-  //   locCol = 0;
-  //   countLetter = 0;
-  //   while (locRow <= row - m && locCol <= col - m && !found) {
-  //     iter = 0;
-  //     while (iter < m && P[iter] == Elem(T, locRow + iter, locCol + iter)) {
-  //       iter++;
-  //       countLetter++;
-  //     }
-
-  //     if (iter == m) {
-  //       found = true;
-  //       for (int i = 0; i < row; i++) {
-  //         for (int j = 0; j < col; j++) {
-  //           if (i != j) {
-  //             Elem(T,i,j) = '-';
-  //           }
-  //           if (i < locRow && j < locCol) {
-  //             Elem(T,i,j) = '-';
-  //           }
-  //           if (i >= locRow + m && j >= locCol + m) {
-  //             Elem(T,i,j) = '-';
-  //           }
-  //         }
-  //       }
-  //     } else {
-  //       locRow++;
-  //       locCol++;
-  //       countLetter++;
-  //     }
-  //   }
-  // }
-
   // Row Major Diagonal Matching
   if (!found) {
     locRow = 0;
