@@ -570,6 +570,7 @@ void PencocokanString(Matrix T, string P)
     }
   }
 
+  // Diagonal checking from bottom right
   if (!found) {
     locRow = row - 1;
     locCol = col - 1;
